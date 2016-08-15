@@ -59,6 +59,38 @@ bot.onText(/\/language/, function (msg) {
   }
 });
 
+bot.onText(/\/(simplified)|(traditional)|(english)/, function (msg, match) {
+  var chatId = msg.chat.id;
+  var userId = msg.from.id;
+  var replyId = msg.message_id;
+  var lang;
+
+  switch (match[0]) {
+    case 'english':
+      lang = Constants.databaseKeys.English.key;
+      break;
+
+    case 'traditional':
+      lang = Constants.databaseKeys.TraditionalChinese.key;
+      break;
+
+    case '/simplified':
+      lang = Constants.databaseKeys.SimplifiedChinese.key;
+      break;
+
+    default:
+      lang = Constants.databaseKeys.English.key;
+  }
+
+  dbClass.createNewUserPreferences(dbInstance, userId, lang, function(err, results) {
+    if (err == null) {
+      bot.sendMessage(chatId, 'Set new language: ' + lang, {reply_to_message_id: replyId});
+    } else {
+      bot.sendMessage(chatId, 'Couldnt change language.', {reply_to_message_id: replyId});
+    }
+  });
+});
+
 /****************************************************/
 // Private methods
 /****************************************************/
