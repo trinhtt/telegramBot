@@ -1,5 +1,6 @@
 var TelegramBot = require('node-telegram-bot-api');
 var dbClass = require('./database.js');
+var Constants = require('./constants.js');
 var token = process.env.TELEGRAM_BOT_TOKEN || '<INSERT TOKEN HERE>';
 var dbInstance;
 
