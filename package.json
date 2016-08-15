@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/trinhtt/telegramBot/issues"
   },
-  "homepage": "https://github.com/trinhtt/telegramBot#readme"
+  "homepage": "https://github.com/trinhtt/telegramBot#readme",
+  "dependencies": {
+    "mongodb": "^2.2.5"
+  }
 }
