@@ -20,3 +20,22 @@ exports.topics = {
   current: 'current',
   warning: 'warning'
 }
+
+exports.databaseKeys = {
+  English: {
+    key: 'en',
+    display: 'english'
+  },
+  TraditionalChinese: {
+    key: 'zh_tw',
+    display: '繁體中文'
+  },
+  SimplifiedChinese: {
+    key: 'zh_cn',
+    display: '简体中文'
+  }
+}
+
+exports.databaseCollections = {
+  users: 'users'
+}
