@@ -41,9 +41,10 @@ bot.getMe().then(function (me) {
 
 bot.onText(/\/current/, function (msg) {
   var chatId = msg.chat.id;
+  var userId = msg.from.id;
   var replyId = msg.message_id;
 
-  bot.sendMessage(chatId, '/current', {reply_to_message_id: replyId});
+  sendMessageWithFormattedLanguage(userId, chatId, Constants.topics.current, replyId, getCurrentWeather);
 });
 
 bot.onText(/\/language/, function (msg) {
@@ -213,4 +214,27 @@ function getCurrentWeather(url, callback) {
   req.on('error', function(err) {
     console.log("Error");
   });
+}
+
+function sendMessageWithFormattedLanguage(userId, chatId, type, replyId, getMethod, update) {
+  if (dbInstance != null) {
+    dbClass.getPreferedLanguage(dbInstance, userId, function(err, callback) {
+      if (err == null) {
+        var url = getCorrectURL(callback, type);
+        var resp2 = getMethod(url, function (result, err) {
+          if (err == null) {
+            if (update != null) {
+              result = 'UPDATE: \n\n' + result;
+            }
+            bot.sendMessage(chatId, result, {reply_to_message_id: replyId});
+          } else {
+            bot.sendMessage(chatId, err, {reply_to_message_id: replyId});
+          }
+        });
+      } else {
+        console.log(err);
+        bot.sendMessage(chatId, err, {reply_to_message_id: replyId});
+      }
+    });
+  }
 }
