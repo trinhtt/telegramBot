@@ -55,6 +55,12 @@ bot.onText(/\/warning/, function (msg) {
   sendMessageWithFormattedLanguage(userId, chatId, Constants.topics.warning, replyId, getWarning);
 });
 
+bot.onText(/\/topics/, function (msg) {
+  var chatId = msg.chat.id;
+  var replyId = msg.message_id;
+  //TODO: Make enums of topics, no hard coded string
+  bot.sendMessage(chatId, 'current, warning', {reply_to_message_id: replyId});
+});
 
 bot.onText(/\/language/, function (msg) {
   var chatId = msg.chat.id;
