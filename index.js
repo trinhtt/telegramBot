@@ -342,6 +342,7 @@ function getWarning(url, callback) {
 
 function pollFeedRSS() {
   pollCurrentWeatherFeed();
+  pollWarningFeed();
 }
 
 function pollCurrentWeatherFeed() {
@@ -369,6 +370,36 @@ function pollCurrentWeatherFeed() {
         console.log('No updates for current weather.');
       }
     });
+  });
+}
+
+function pollWarningFeed() {
+  // Poll warning feed
+  var currentWarningURL = Constants.webservices.English.rootURL+Constants.webservices.English.warningRSS;
+  getWarning(currentWarningURL, function(title, err, res) {
+    if (err != null) {
+      console.log(err);
+      return
+    }
+
+    var publishDate = res.rss.channel.item.pubDate;
+    if (publishDate == null) {
+      console.log('Publish date is null');
+      return
+    }
+
+    dbClass.getLastPubDate(dbInstance, Constants.topics.warning, publishDate, function(err, results) {
+      if (err == null && results != null) {
+        // TODO: Send messages to subscribers
+        console.log('Send messages to subscribers, warning update.');
+        sendMessagesToSubscribers(Constants.databaseCollections.subscribersWarning, Constants.topics.warning, getWarning);
+      }
+
+      if (results == null || err != null) {
+        console.log('No updates for warning.');
+      }
+    });
+
   });
 }
 

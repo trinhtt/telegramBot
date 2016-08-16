@@ -8,7 +8,7 @@
             <language>en-us</language>
             <webMaster>mailbox@hko.gov.hk</webMaster>
             <copyright>The content available in this file, including but not limited to all text, graphics, drawings, diagrams, photographs and compilation of data or other materials are protected by copyright. The Government of the Hong Kong Special Administrative Region is the owner of all copyright works contained in this website. Any reproduction, adaptation, distribution, dissemination or making available of such copyright works to the public is strictly prohibited unless prior written authorization is obtained from the Hong Kong Observatory.</copyright>
-            <pubDate>Sun, 15 Aug 2016 20:16:46 +0800</pubDate>
+            <pubDate>Sun, 16 Aug 2016 20:16:46 +0800</pubDate>
             <image>
                 <title>Hong Kong Observatory</title>
                 <url>http://rss.weather.gov.hk/img/logo_dblue.gif</url>
@@ -20,7 +20,7 @@
                 <link>http://www.weather.gov.hk/textonly/warning/warn.htm</link>
                 <author>Hong Kong Observatory</author>
                 <description><![CDATA[There is no warning in force]]></description>
-                <pubDate>Sun, 15 Aug 2016 20:16:46 +0800</pubDate>
+                <pubDate>Sun, 16 Aug 2016 20:16:46 +0800</pubDate>
                 <guid isPermaLink="false">http://rss.weather.gov.hk/rss/1471115746/nowarning</guid>
             </item>
         </channel>
