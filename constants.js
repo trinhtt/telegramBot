@@ -37,5 +37,7 @@ exports.databaseKeys = {
 }
 
 exports.databaseCollections = {
-  users: 'users'
+  users: 'users',
+  subscribersCurrent: 'subscribersCurrent',
+  subscribersWarning: 'subscribersWarning'
 }

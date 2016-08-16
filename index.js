@@ -62,6 +62,58 @@ bot.onText(/\/topics/, function (msg) {
   bot.sendMessage(chatId, 'current, warning', {reply_to_message_id: replyId});
 });
 
+bot.onText(/(\/subscribe current)|(\/subscribe warning)/, function (msg, match) {
+  var chatId = msg.chat.id;
+  var replyId = msg.message_id;
+  var collectionId;
+  switch (match[0]) {
+    case '/subscribe current':
+      collectionId = Constants.databaseCollections.subscribersCurrent;
+      break;
+    case '/subscribe warning':
+      collectionId = Constants.databaseCollections.subscribersWarning;
+      break;
+    default:
+      collectionId = Constants.databaseCollections.subscribersWarning;
+      break;
+  }
+
+  dbClass.writeSubscriber(dbInstance, collectionId, msg, function(err, result) {
+    if (err == null) {
+      bot.sendMessage(chatId, result, {reply_to_message_id: replyId});
+    } else {
+      bot.sendMessage(chatId, err, {reply_to_message_id: replyId});
+    }
+  });
+});
+
+bot.onText(/(\/unsubscribe current)|(\/unsubscribe warning)/, function (msg, match) {
+  var chatId = msg.chat.id;
+  var replyId = msg.message_id;
+  var userId = msg.from.id;
+  var collectionId;
+
+  switch (match[0]) {
+    case '/unsubscribe current':
+      collectionId = Constants.databaseCollections.subscribersCurrent;
+      break;
+    case '/unsubscribe warning':
+      collectionId = Constants.databaseCollections.subscribersWarning;
+      break;
+    default:
+      collectionId = Constants.databaseCollections.subscribersWarning;
+      break;
+  }
+
+  dbClass.deleteSubscriber(dbInstance, collectionId, userId, function(err, result) {
+    if (err == null) {
+      bot.sendMessage(chatId, result, {reply_to_message_id: replyId});
+    } else {
+      bot.sendMessage(chatId, err, {reply_to_message_id: replyId});
+    }
+  });
+});
+
 bot.onText(/\/language/, function (msg) {
   var chatId = msg.chat.id;
   var userId = msg.from.id;

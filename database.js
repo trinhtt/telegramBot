@@ -64,3 +64,29 @@ exports.createNewUserPreferences = function(db, id, lang, createUserCallback) {
     }
   });
 }
+
+exports.writeSubscriber = function(db, collectionId, msg, callback) {
+  var collection = db.collection(collectionId);
+  var cID = msg.chat.id;
+  var rID = msg.message_id;
+  var uID = msg.from.id;
+  var subscriber = { _id: uID, chatId: cID, replyId: rID};
+  collection.save(subscriber, function(err, results) {
+    if (err == null) {
+      callback(null, 'Subscribe successfully!');
+    } else {
+      createUserCallback('Error subscribing.', null);
+    }
+  });
+}
+
+exports.deleteSubscriber = function(db, collectionId, userId, callback) {
+  var collection = db.collection(collectionId);
+  collection.remove({_id: userId}, function(err, results) {
+    if (err == null) {
+      callback(null, 'Unsubscribe successfully!');
+    } else {
+      createUserCallback('Error Unsubscribe.', null);
+    }
+  });
+}
