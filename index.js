@@ -47,6 +47,15 @@ bot.onText(/\/current/, function (msg) {
   sendMessageWithFormattedLanguage(userId, chatId, Constants.topics.current, replyId, getCurrentWeather);
 });
 
+bot.onText(/\/warning/, function (msg) {
+  var chatId = msg.chat.id;
+  var userId = msg.from.id;
+  var replyId = msg.message_id;
+
+  sendMessageWithFormattedLanguage(userId, chatId, Constants.topics.warning, replyId, getWarning);
+});
+
+
 bot.onText(/\/language/, function (msg) {
   var chatId = msg.chat.id;
   var userId = msg.from.id;
@@ -213,6 +222,58 @@ function getCurrentWeather(url, callback) {
 
   req.on('error', function(err) {
     console.log("Error");
+  });
+}
+
+function getWarning(url, callback) {
+  var red = http.get(url, function(res) {
+
+    var xml = '';
+    res.on('data', function(chunk) {
+      xml += chunk;
+    });
+
+    res.on('end', function() {
+
+      /****************************************************/
+      // DEBUG MODE: Reading RSS from file
+      /****************************************************/
+      if (debugmode == true) {
+        fs = require('fs');
+        fs.readFile('./debug/warning.txt', 'utf8', function (err,data) {
+          if (err) {
+            return console.log(err);
+          }
+          parser.parseString(data, function (err, result) {
+            if (err != null || result == null) {
+              callback(null, 'Error parsing warning XML.');
+              return
+            }
+
+            var title = result.rss.channel.item.title;
+            title = title.replace(/\s\s+/g, ' ');
+            callback(title, null, result);
+          });
+        });
+      }
+
+      /****************************************************/
+      // END DEBUG MODE
+      /****************************************************/
+
+      else {
+        parser.parseString(xml, function(err, result) {
+          if (err != null || result == null) {
+            callback(null, 'Error parsing warning XML.')
+            return
+          }
+          var title = result.rss.channel.item.title;
+          title = title.replace(/\s\s+/g, ' ');
+          callback(title, null, result);
+        });
+      }
+    });
+
   });
 }
 
