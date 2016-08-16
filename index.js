@@ -361,13 +361,29 @@ function pollCurrentWeatherFeed() {
 
     dbClass.getLastPubDate(dbInstance, Constants.topics.current, publishDate, function(err, results) {
       if (err == null && results != null) {
-        // TODO: Send messages to subscribers
         console.log('Send messages to subscribers, current weather update.');
+        sendMessagesToSubscribers(Constants.databaseCollections.subscribersCurrent, Constants.topics.current, getCurrentWeather);
       }
 
       if (results == null || err != null) {
         console.log('No updates for current weather.');
       }
+    });
+  });
+}
+
+function sendMessagesToSubscribers(collectionId, type, getMethod) {
+  dbClass.getSubscribers(dbInstance, collectionId, function(err, documents) {
+    if (err) {
+      console.log(err);
+      return
+    }
+
+    documents.forEach( function(doc) {
+      var id = doc._id;
+      var chatId = doc.chatId;
+      var replyId = doc.replyId;
+      sendMessageWithFormattedLanguage(id, chatId, type, replyId, getMethod, true);
     });
   });
 }

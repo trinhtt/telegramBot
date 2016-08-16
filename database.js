@@ -129,6 +129,12 @@ exports.getLastPubDate = function(db, collectionId, lastPubDate, callback) {
 
 }
 
+exports.getSubscribers = function(db, collectionId, callback) {
+  var collection = db.collection(collectionId);
+  var results = collection.find()
+  callback(null, results);
+}
+
 function writePubDate(db, collectionId, lastPubDate, callback) {
   var collection = db.collection(constants.databaseCollections.pubDate);
   var doc = { _id: collectionId, pubDate: lastPubDate};
