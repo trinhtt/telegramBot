@@ -1,7 +1,11 @@
 var TelegramBot = require('node-telegram-bot-api');
+var http = require('http');
+var xml2js = require('xml2js');
 var dbClass = require('./database.js');
 var Constants = require('./constants.js');
+var parser = new xml2js.Parser({explicitArray : false});
 var token = process.env.TELEGRAM_BOT_TOKEN || '<INSERT TOKEN HERE>';
+var debugmode = false;
 var dbInstance;
 
 
@@ -137,4 +141,76 @@ function getCorrectURL(language, type) {
     default:
       return Constants.webservices.English.rootURL+Constants.webservices.English.currentWeatherRSS
   }
+}
+
+function getCurrentWeather(url, callback) {
+  var req = http.get(url, function(res) {
+    // save the data
+    var xml = '';
+    res.on('data', function(chunk) {
+      xml += chunk;
+    });
+
+    res.on('end', function() {
+
+      /****************************************************/
+      // DEBUG MODE: Reading RSS from file
+      /****************************************************/
+      if (debugmode == true) {
+        fs = require('fs');
+        fs.readFile('./debug/currentWeather.txt', 'utf8', function (err,data) {
+          if (err) {
+            return console.log(err);
+          }
+          parser.parseString(data, function (err, resultXML) {
+            if (err != null || resultXML == null) {
+              callback(null, 'Error parsing current weather XML.');
+              return
+            }
+
+            var description = resultXML.rss.channel.item.description;
+            string = description.replace(/\s\s+/g, ' ');
+            var result = string.match(/<p>(.+?)<\/p>/g);
+            if (result != null && result[0]) {
+              var trimmedResult = result[0].replace(/<\/?p>/g , '');
+              trimmedResult = trimmedResult.replace(/<br\/>/g, '\n');
+              trimmedResult = trimmedResult.replace(/<img (.+?)>/g, '');
+              callback(trimmedResult, null, resultXML);
+            } else {
+              callback(null, 'Error parsing current weather XML.')
+            }
+          });
+        });
+      }
+
+      /****************************************************/
+      // END DEBUG MODE
+      /****************************************************/
+      else {
+        parser.parseString(xml, function (err, resultXML) {
+          if (err != null || resultXML == null) {
+            callback(null, 'Error parsing current weather XML.');
+            return
+          }
+
+          var description = resultXML.rss.channel.item.description;
+          string = description.replace(/\s\s+/g, ' ');
+          string = string.replace(/\n/g, '');
+          var result = string.match(/<p>(.+?)<\/p>/g);
+          if (result != null && result[0]) {
+            var trimmedResult = result[0].replace(/<\/?p>/g , '');
+            trimmedResult = trimmedResult.replace(/<br\/>/g, '\n');
+            trimmedResult = trimmedResult.replace(/<img (.+?)>/g, '');
+            callback(trimmedResult, null, resultXML);
+          } else {
+            callback(null, 'Error parsing current weather XML.')
+          }
+        });
+      }
+    });
+  });
+
+  req.on('error', function(err) {
+    console.log("Error");
+  });
 }

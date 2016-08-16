@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?><?xml-stylesheet href="current.xsl" type="text/xsl" ?><rss version="2.0">
+  <channel>
+    <title>Current Weather</title>
+    <link>
+    http://www.weather.gov.hk/wxinfo/currwx/current.htm</link>
+    <description>Current Weather</description>
+    <language>en-us</language>
+    <copyright>The content available in this file, including but
+    not limited to all text, graphics, drawings, diagrams,
+    photographs and compilation of data or other materials are
+    protected by copyright. The Government of the Hong Kong Special
+    Administrative Region is the owner of all copyright works
+    contained in this website. Any reproduction, adaptation,
+    distribution, dissemination or making available of such
+    copyright works to the public is strictly prohibited unless
+    prior written authorization is obtained from the Hong Kong
+    Observatory.</copyright>
+    <image>
+      <title>Current Weather</title>
+      <link>http://www.weather.gov.hk/wxinfo/currwx/current.htm</link>
+	  <url>http://rss.weather.gov.hk/img/HKOlogo.gif</url>
+      <width>144</width>
+      <height>28</height>
+    </image>
+    <item>
+       <author>hkowm@hko.gov.hk</author>
+	  <guid isPermaLink="false">
+      http://rss.weather.gov.hk/rss/CurrentWeather/20160815230200</guid>
+<pubDate>Mon, 15 Aug 2016 23:06:00 GMT</pubDate>      <title>Bulletin updated at 23:02 HKT 15/08/2016</title>
+      <category>R</category>
+      <link>
+      http://www.weather.gov.hk/wxinfo/currwx/current.htm</link>
+        <description>
+        <![CDATA[
+         <img src="http://rss.weather.gov.hk/img/pic62.png" style="vertical-align: middle;">        <p>At 
+        11 p.m. 
+               at the Hong Kong Observatory :<br/>
+        Air temperature : 26 degrees Celsius<br/>
+        Relative Humidity : 96 per cent<br/>
+		 								<br/>		Although the wind strength near the centre of the monsoon depression now over southeast of Hong Kong is not high, there is still a chance for its further development.  It is expected to keep lingering around southeast of Hong Kong at first and it will move west afterwards. The Hong Kong Observatory will monitor closely its development. Winds over the territory are expected to become southerly on Wednesday and Thursday. There will be squally showers, which will be heavy at times. Members of the public should pay close attention to the latest weather information from the Observatory.<br/>    																											<p></p>
+                The air temperatures at other places were:
+                <br/>
+                <font size="-1">
+    <table border="0" cellspacing="0" cellpadding="0">
+    <tr><td><font size="-1">Hong Kong Observatory</font></td><td width="100" align="right"><font size="-1">26 degrees ;</font></td></tr>
+    <tr><td><font size="-1">King's Park</font></td><td width="100" align="right"><font size="-1">26 degrees ;</font></td></tr>
+    <tr><td><font size="-1">Wong Chuk Hang</font></td><td width="100" align="right"><font size="-1">26 degrees ;</font></td></tr>
+    <tr><td><font size="-1">Ta Kwu Ling</font></td><td width="100" align="right"><font size="-1">26 degrees ;</font></td></tr>
+    <tr><td><font size="-1">Lau Fau Shan</font></td><td width="100" align="right"><font size="-1">25 degrees ;</font></td></tr>
+    <tr><td><font size="-1">Tai Po</font></td><td width="100" align="right"><font size="-1">26 degrees ;</font></td></tr>
+    <tr><td><font size="-1">Sha Tin</font></td><td width="100" align="right"><font size="-1">27 degrees ;</font></td></tr>
+    <tr><td><font size="-1">Tuen Mun</font></td><td width="100" align="right"><font size="-1">26 degrees ;</font></td></tr>
+    <tr><td><font size="-1">Tseung Kwan O</font></td><td width="100" align="right"><font size="-1">26 degrees ;</font></td></tr>
+    <tr><td><font size="-1">Sai Kung</font></td><td width="100" align="right"><font size="-1">26 degrees ;</font></td></tr>
+    <tr><td><font size="-1">Cheung Chau</font></td><td width="100" align="right"><font size="-1">25 degrees ;</font></td></tr>
+    <tr><td><font size="-1">Chek Lap Kok</font></td><td width="100" align="right"><font size="-1">27 degrees ;</font></td></tr>
+    <tr><td><font size="-1">Tsing Yi</font></td><td width="100" align="right"><font size="-1">26 degrees ;</font></td></tr>
+    <tr><td><font size="-1">Shek Kong</font></td><td width="100" align="right"><font size="-1">27 degrees ;</font></td></tr>
+    <tr><td><font size="-1">Tsuen Wan Ho Koon</font></td><td width="100" align="right"><font size="-1">25 degrees ;</font></td></tr>
+    <tr><td><font size="-1">Tsuen Wan Shing Mun Valley</font></td><td width="100" align="right"><font size="-1">26 degrees ;</font></td></tr>
+    <tr><td><font size="-1">Hong Kong Park</font></td><td width="100" align="right"><font size="-1">26 degrees ;</font></td></tr>
+    <tr><td><font size="-1">Shau Kei Wan</font></td><td width="100" align="right"><font size="-1">26 degrees ;</font></td></tr>
+    <tr><td><font size="-1">Kowloon City</font></td><td width="100" align="right"><font size="-1">26 degrees ;</font></td></tr>
+    <tr><td><font size="-1">Happy Valley</font></td><td width="100" align="right"><font size="-1">27 degrees ;</font></td></tr>
+    <tr><td><font size="-1">Wong Tai Sin</font></td><td width="100" align="right"><font size="-1">26 degrees ;</font></td></tr>
+    <tr><td><font size="-1">Stanley</font></td><td width="100" align="right"><font size="-1">26 degrees ;</font></td></tr>
+    <tr><td><font size="-1">Kwun Tong</font></td><td width="100" align="right"><font size="-1">26 degrees ;</font></td></tr>
+    <tr><td><font size="-1">Sham Shui Po</font></td><td width="100" align="right"><font size="-1">26 degrees ;</font></td></tr>
+    <tr><td><font size="-1">Kai Tak Runway Park</font></td><td width="100" align="right"><font size="-1">27 degrees ;</font></td></tr>
+    <tr><td><font size="-1">Yuen Long Park</font></td><td width="100" align="right"><font size="-1">26 degrees .</font></td></tr>
+    </table></font></p>
+        ]]>
+        </description>
+    </item>
+  </channel>
+</rss>
