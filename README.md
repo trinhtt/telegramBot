@@ -24,6 +24,7 @@ Available commands:
 - \subscribe (current|warning): Subscribe to current or warning feed. When there is something new, you will receive a notification
 - \unsubscribe (current|warning): To unsubscribe to a feed. You won't receive notifications anymore.
 - \topics: Topics that you can query the bot
+- \(english)(simplified)(traditional): Change the language you will receive the results
 
 
 ## Debug Mode
