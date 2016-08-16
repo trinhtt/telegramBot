@@ -25,9 +25,9 @@ Available commands:
 - \unsubscribe (current|warning): To unsubscribe to a feed. You won't receive notifications anymore.
 - \topics: Topics that you can query the bot
 
- ## Debug Mode
+
+## Debug Mode
 
  When you subscribe to a topic, it may take a long time before the RSS Feed updates, so you may want to test it in a different way. In `index.js`, set `debugmode` to `true` to stop polling the RSS for updates, and use a local file located at `./debug`. Change manually the `pubDate` in the file, and you will receive a notification.
 
-License
-----
+## License
