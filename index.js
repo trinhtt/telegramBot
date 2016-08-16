@@ -5,7 +5,7 @@ var dbClass = require('./database.js');
 var Constants = require('./constants.js');
 var parser = new xml2js.Parser({explicitArray : false});
 var token = process.env.TELEGRAM_BOT_TOKEN || '<INSERT TOKEN HERE>';
-var debugmode = true;
+var debugmode = false;
 var dbInstance;
 
 
@@ -65,6 +65,12 @@ bot.onText(/\/topics/, function (msg) {
   var replyId = msg.message_id;
   //TODO: Make enums of topics, no hard coded string
   bot.sendMessage(chatId, 'current, warning', {reply_to_message_id: replyId});
+});
+
+bot.onText(/\/help/, function (msg) {
+  var chatId = msg.chat.id;
+  var replyId = msg.message_id;
+  bot.sendMessage(chatId, Constants.helpText.text, {reply_to_message_id: replyId});
 });
 
 bot.onText(/(\/subscribe current)|(\/subscribe warning)/, function (msg, match) {

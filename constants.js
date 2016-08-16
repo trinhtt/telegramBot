@@ -47,3 +47,14 @@ exports.databaseCollections = {
   subscribersCurrent: 'subscribersCurrent',
   subscribersWarning: 'subscribersWarning'
 }
+
+exports.helpText = {
+  text: 'Available commands:\n\n' +
+        '\\help: Displays all the available commands\n\n' +
+        '\\current: Displays the current weather\n\n' +
+        '\\warning: Displays weather warning\n\n' +
+        '\\language: Displays the language you will receive the results\n\n' +
+        '\\subscribe (current|warning): Subscribe to current or warning feed. When there is something new, you will receive a notification\n\n' +
+        '\\unsubscribe (current|warning): To unsubscribe to a feed. You won\'t receive notifications anymore.\n\n' +
+        '\\topics: Topics that you can query the bot'
+}
