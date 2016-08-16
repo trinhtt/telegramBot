@@ -90,3 +90,55 @@ exports.deleteSubscriber = function(db, collectionId, userId, callback) {
     }
   });
 }
+
+exports.getLastPubDate = function(db, collectionId, lastPubDate, callback) {
+  var collection = db.collection(constants.databaseCollections.pubDate);
+
+  collection.findOne({_id: collectionId}, function(err, document) {
+    if (err != null) {
+      console.log('Error finding user.');
+      callback(err, null);
+    }
+
+    // Create a new pubDate if the document is null
+    if (document == null) {
+      writePubDate(db, collectionId, lastPubDate, function(err, results) {
+        if (err != null) {
+          callback(err, null);
+        } else {
+          callback(null, true);
+        }
+      });
+    } else {
+      var date1 = new Date(document.pubDate);
+      var date2 = new Date(lastPubDate);
+
+      if (date2 > date1) {
+        writePubDate(db, collectionId, lastPubDate, function(err, results) {
+          if (err != null) {
+            callback(err, null);
+          } else {
+            callback(null, true);
+          }
+        });
+      } else {
+        callback(null, null);
+      }
+    }
+  });
+
+}
+
+function writePubDate(db, collectionId, lastPubDate, callback) {
+  var collection = db.collection(constants.databaseCollections.pubDate);
+  var doc = { _id: collectionId, pubDate: lastPubDate};
+  collection.save(doc, function(err, results) {
+    if (err == null) {
+      console.log('Writing last pubDate for ' + collectionId);
+      callback(null, results);
+    } else {
+      console.log('Error writing pubDate.');
+      callback(err, null);
+    }
+  });
+}

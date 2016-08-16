@@ -5,7 +5,7 @@ var dbClass = require('./database.js');
 var Constants = require('./constants.js');
 var parser = new xml2js.Parser({explicitArray : false});
 var token = process.env.TELEGRAM_BOT_TOKEN || '<INSERT TOKEN HERE>';
-var debugmode = false;
+var debugmode = true;
 var dbInstance;
 
 
@@ -21,6 +21,11 @@ dbClass.connect(function(database, err) {
     return
   }
 });
+
+/****************************************************/
+// Polling the RSS feed with a timer
+/****************************************************/
+var timer = setInterval(pollFeedRSS, Constants.timerValue.delayTest);
 
 /****************************************************/
 // Setting up the bot
@@ -332,6 +337,38 @@ function getWarning(url, callback) {
       }
     });
 
+  });
+}
+
+function pollFeedRSS() {
+  pollCurrentWeatherFeed();
+}
+
+function pollCurrentWeatherFeed() {
+  // Poll current weather feed
+  var currentWeatherURL = Constants.webservices.English.rootURL+Constants.webservices.English.currentWeatherRSS;
+  getCurrentWeather(currentWeatherURL, function(result, err, xml) {
+    if (err != null) {
+      console.log(err);
+      return
+    }
+
+    var publishDate = xml.rss.channel.item.pubDate;
+    if (publishDate == null) {
+      console.log('Publish date is null');
+      return
+    }
+
+    dbClass.getLastPubDate(dbInstance, Constants.topics.current, publishDate, function(err, results) {
+      if (err == null && results != null) {
+        // TODO: Send messages to subscribers
+        console.log('Send messages to subscribers, current weather update.');
+      }
+
+      if (results == null || err != null) {
+        console.log('No updates for current weather.');
+      }
+    });
   });
 }
 

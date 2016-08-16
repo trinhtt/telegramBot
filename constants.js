@@ -21,6 +21,11 @@ exports.topics = {
   warning: 'warning'
 }
 
+exports.timerValue = {
+  delay: 1000*60*5,
+  delayTest: 1000*10
+}
+
 exports.databaseKeys = {
   English: {
     key: 'en',
@@ -38,6 +43,7 @@ exports.databaseKeys = {
 
 exports.databaseCollections = {
   users: 'users',
+  pubDate: 'pubDate',
   subscribersCurrent: 'subscribersCurrent',
   subscribersWarning: 'subscribersWarning'
 }

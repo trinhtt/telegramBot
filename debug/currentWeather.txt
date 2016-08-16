@@ -26,7 +26,7 @@
        <author>hkowm@hko.gov.hk</author>
 	  <guid isPermaLink="false">
       http://rss.weather.gov.hk/rss/CurrentWeather/20160815230200</guid>
-<pubDate>Mon, 15 Aug 2016 23:06:00 GMT</pubDate>      <title>Bulletin updated at 23:02 HKT 15/08/2016</title>
+<pubDate>Mon, 16 Aug 2016 00:07:00 GMT</pubDate>      <title>Bulletin updated at 23:02 HKT 15/08/2016</title>
       <category>R</category>
       <link>
       http://www.weather.gov.hk/wxinfo/currwx/current.htm</link>
