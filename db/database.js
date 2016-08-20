@@ -1,7 +1,7 @@
 var mongodb = require('mongodb');
 var MongoClient = mongodb.MongoClient;
 var self = require('./database.js');
-var constants = require('./utils/constants.js');
+var constants = require('../utils/constants.js');
 var host = 'localhost';
 var port = '27017';
 
