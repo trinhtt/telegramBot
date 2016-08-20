@@ -65,12 +65,9 @@ exports.createNewUserPreferences = function(db, id, lang, createUserCallback) {
   });
 }
 
-exports.writeSubscriber = function(db, collectionId, msg, callback) {
+exports.writeSubscriber = function(db, collectionId, message, callback) {
   var collection = db.collection(collectionId);
-  var cID = msg.chat.id;
-  var rID = msg.message_id;
-  var uID = msg.from.id;
-  var subscriber = { _id: uID, chatId: cID, replyId: rID};
+  var subscriber = { _id: message.userId, chatId: message.chatId, replyId: message.replyId};
   collection.save(subscriber, function(err, results) {
     if (err == null) {
       callback(null, 'Subscribe successfully!');

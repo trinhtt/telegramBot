@@ -57,43 +57,43 @@ function sendMessageWithFormattedLanguage(userId, chatId, type, replyId, getMeth
   }
 }
 
-function writeSubscriber(collectionId, msg, chatId, replyId) {
-  dbClass.writeSubscriber(dbInstance, collectionId, msg, function(err, result) {
+function writeSubscriber(collectionId, message) {
+  dbClass.writeSubscriber(dbInstance, collectionId, message, function(err, result) {
     if (err == null) {
-      bot.sendMessage(chatId, result, {reply_to_message_id: replyId});
+      bot.sendMessage(message.chatId, result, {reply_to_message_id: message.replyId});
     } else {
-      bot.sendMessage(chatId, err, {reply_to_message_id: replyId});
+      bot.sendMessage(message.chatId, err, {reply_to_message_id: message.replyId});
     }
   });
 }
 
-function deleteSubscriber(collectionId, userId, chatId, replyId) {
-  dbClass.deleteSubscriber(dbInstance, collectionId, userId, function(err, result) {
+function deleteSubscriber(collectionId, message) {
+  dbClass.deleteSubscriber(dbInstance, collectionId, message.userId, function(err, result) {
     if (err == null) {
-      bot.sendMessage(chatId, result, {reply_to_message_id: replyId});
+      bot.sendMessage(message.chatId, result, {reply_to_message_id: message.replyId});
     } else {
-      bot.sendMessage(chatId, err, {reply_to_message_id: replyId});
+      bot.sendMessage(message.chatId, err, {reply_to_message_id: message.replyId});
     }
   });
 }
 
-function getPreferedLanguage(userId, chatId, replyId) {
-  dbClass.getPreferedLanguage(dbInstance, userId, function(err, callback) {
+function getPreferedLanguage(message) {
+  dbClass.getPreferedLanguage(dbInstance, message.userId, function(err, callback) {
     if (err == null) {
-      bot.sendMessage(chatId, 'Current language is ' + formatter.getFormattedLanguage(callback), {reply_to_message_id: replyId});
+      bot.sendMessage(message.chatId, 'Current language is ' + formatter.getFormattedLanguage(callback), {reply_to_message_id: message.replyId});
     } else {
       console.log(err);
-      bot.sendMessage(chatId, 'Couldnt find prefered language for user.', {reply_to_message_id: replyId});
+      bot.sendMessage(message.chatId, 'Couldnt find prefered language for user.', {reply_to_message_id: message.replyId});
     }
   });
 }
 
-function createNewUserPreferences(userId, lang, chatId, replyId) {
-  dbClass.createNewUserPreferences(dbInstance, userId, lang, function(err, results) {
+function createNewUserPreferences(message, lang) {
+  dbClass.createNewUserPreferences(dbInstance, message.userId, lang, function(err, results) {
     if (err == null) {
-      bot.sendMessage(chatId, 'Set new language: ' + lang, {reply_to_message_id: replyId});
+      bot.sendMessage(message.chatId, 'Set new language: ' + lang, {reply_to_message_id: message.replyId});
     } else {
-      bot.sendMessage(chatId, 'Couldnt change language.', {reply_to_message_id: replyId});
+      bot.sendMessage(message.chatId, 'Couldnt change language.', {reply_to_message_id: message.replyId});
     }
   });
 }

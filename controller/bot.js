@@ -3,6 +3,7 @@ var formatter = require('../utils/formatter.js');
 var weatherService = require('../services/weatherServices.js');
 var operations = require('./operations.js');
 var dbClass = require('./../db/database.js');
+var Message = require('../model/message.js');
 var dbInstance = null;
 var bot = null;
 
@@ -27,37 +28,31 @@ function init(botClass,db){
 
 function settingUpOntext(bot){
   bot.onText(/\/current/, function (msg) {
-    var chatId = msg.chat.id;
-    var userId = msg.from.id;
-    var replyId = msg.message_id;
+    var message = new Message(msg);
 
-    operations.sendMessageWithFormattedLanguage(userId, chatId, Constants.topics.current, replyId, weatherService.getCurrentWeather);
+    operations.sendMessageWithFormattedLanguage(message.userId, message.chatId, Constants.topics.current, message.replyId, weatherService.getCurrentWeather);
   });
 
   bot.onText(/\/warning/, function (msg) {
-    var chatId = msg.chat.id;
-    var userId = msg.from.id;
-    var replyId = msg.message_id;
+    var message = new Message(msg);
 
-    operations.sendMessageWithFormattedLanguage(userId, chatId, Constants.topics.warning, replyId, weatherService.getWarning);
+    operations.sendMessageWithFormattedLanguage(message.userId, message.chatId, Constants.topics.warning, message.replyId, weatherService.getWarning);
   });
 
   bot.onText(/\/topics/, function (msg) {
-    var chatId = msg.chat.id;
-    var replyId = msg.message_id;
+    var message = new Message(msg);
     //TODO: Make enums of topics, no hard coded string
-    bot.sendMessage(chatId, 'current, warning', {reply_to_message_id: replyId});
+    bot.sendMessage(message.chatId, 'current, warning', {reply_to_message_id: message.replyId});
   });
 
   bot.onText(/\/help/, function (msg) {
-    var chatId = msg.chat.id;
-    var replyId = msg.message_id;
-    bot.sendMessage(chatId, Constants.helpText.text, {reply_to_message_id: replyId});
+    var message = new Message(msg);
+
+    bot.sendMessage(message.chatId, Constants.helpText.text, {reply_to_message_id: message.replyId});
   });
 
   bot.onText(/(\/subscribe current)|(\/subscribe warning)/, function (msg, match) {
-    var chatId = msg.chat.id;
-    var replyId = msg.message_id;
+    var message = new Message(msg);
     var collectionId;
     switch (match[0]) {
       case '/subscribe current':
@@ -71,13 +66,11 @@ function settingUpOntext(bot){
         break;
     }
 
-    operations.writeSubscriber(collectionId, msg, chatId, replyId);
+    operations.writeSubscriber(collectionId, message);
   });
 
   bot.onText(/(\/unsubscribe current)|(\/unsubscribe warning)/, function (msg, match) {
-    var chatId = msg.chat.id;
-    var replyId = msg.message_id;
-    var userId = msg.from.id;
+    var message = new Message(msg);
     var collectionId;
 
     switch (match[0]) {
@@ -92,21 +85,17 @@ function settingUpOntext(bot){
         break;
     }
 
-    operations.deleteSubscriber(collectionId, userId, chatId, replyId);
+    operations.deleteSubscriber(collectionId, message);
   });
 
   bot.onText(/\/language/, function (msg) {
-    var chatId = msg.chat.id;
-    var userId = msg.from.id;
-    var replyId = msg.message_id;
+    var message = new Message(msg);
 
-    operations.getPreferedLanguage(userId, chatId, replyId);
+    operations.getPreferedLanguage(message);
   });
 
   bot.onText(/\/(simplified)|(traditional)|(english)/, function (msg, match) {
-    var chatId = msg.chat.id;
-    var userId = msg.from.id;
-    var replyId = msg.message_id;
+    var message = new Message(msg);
     var lang;
 
     switch (match[0]) {
@@ -126,7 +115,7 @@ function settingUpOntext(bot){
         lang = Constants.databaseKeys.English.key;
     }
 
-    operations.createNewUserPreferences(userId, lang, chatId, replyId)
+    operations.createNewUserPreferences(message, lang)
   });
 }
 
