@@ -1,9 +1,7 @@
 var http = require('http');
 var debugmode = false;
-var xml2js = require('xml2js');
 var Constants = require('../utils/constants.js');
 var formatter = require('../utils/formatter.js');
-var parser = new xml2js.Parser({explicitArray : false});
 var dbClass = require('../db/database.js');
 
 function getCurrentWeather(url, callback) {

@@ -3,11 +3,9 @@ var dbClass = require('./db/database.js');
 var Constants = require('./utils/constants.js');
 var weatherService = require('./services/weatherServices.js');
 var botClass = require('./controller/bot.js');
-var formatter = require('./utils/formatter.js');
 var operations = require('./controller/operations.js');
 var token = process.env.TELEGRAM_BOT_TOKEN || '<INSERT TOKEN HERE>';
 var debugmode = false;
-var dbInstance;
 
 /****************************************************/
 // Setting up the bot
@@ -23,7 +21,6 @@ var bot = new TelegramBot(token, options);
 /****************************************************/
 dbClass.connect(function(database, err) {
   if (err == null) {
-    dbInstance = database;
     botClass.init(bot, database);
     operations.init(bot, database);
 
