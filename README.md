@@ -9,7 +9,7 @@ This is a Telegram Bot which gives you the current weather and warning informati
 ## Installation
 
 1. A bot token is needed, to obtain one, talk to @botfather and create a new bot
-2. In `index.js` at line 7, insert your bot token
+2. In `index.js` at line 8, insert your bot token
 3. You need a running MongoDB server on localhost. Install the MongoDB client and boot the server with the command:
 ```sh
 $ mongod --dbpath=/data --port 27017
@@ -33,6 +33,6 @@ Available commands:
 
 ## Debug Mode
 
- When you subscribe to a topic, it may take a long time before the RSS Feed updates, so you may want to test it in a different way. In `index.js`, set `debugmode` to `true` to stop polling the RSS for updates, and use a local file located at `./debug`. Change manually the `pubDate` in the file, and you will receive a notification.
+ When you subscribe to a topic, it may take a long time before the RSS Feed updates, so you may want to test it in a different way. In `weatherServices.js`, set `debugmode` to `true` to stop polling the RSS for updates, and use a local file located at `./debug`. Change manually the `pubDate` in the file, and you will receive a notification.
 
 ## License
