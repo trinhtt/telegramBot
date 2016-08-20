@@ -13,10 +13,10 @@ var url = 'mongodb://' + host + ':' +
 exports.connect = function(callback) {
   MongoClient.connect(url, function(err, database) {
     if (err == null) {
-      console.log("Connected correctly to server");
+      console.log(constants.successMessages.databaseConnectionSuccess);
       callback(database, null);
     } else {
-      console.log("Couldn't connect to server");
+      console.log(constants.errorMessages.databaseConnectionError);
       callback(null, err);
     }
   });
@@ -27,24 +27,24 @@ exports.getPreferedLanguage = function(db, id, callback) {
   var collection = db.collection(constants.databaseCollections.users);
   collection.findOne({_id: id}, function(err, document) {
     if (err != null) {
-      console.log('Error finding user.');
+      console.log(constants.errorMessages.noUserFoundError);
       callback(err, null)
     }
 
     if (document == null) {
-      console.log('Couldnt find the user. Creating a new one.');
+      console.log(constants.errorMessages.noUserFoundCreateNewError);
       var defaultLang = constants.databaseKeys.English.key;
       self.createNewUserPreferences(db, id, defaultLang, function(err, results) {
         if (err == null) {
-          console.log('Default language English');
+          console.log(constants.successMessages.defaultLanguage);
           callback(null, results);
         } else {
-          console.log('Couldnt retrieve prefered language for this user.');
+          console.log(constants.errorMessages.cantRetrieveLanguage);
           callback(err, null);
         }
       });
     } else {
-      console.log("Found prefered language for user.");
+      console.log(constants.successMessages.foundLanguage);
       callback(null, document.language);
     }
   });
@@ -56,10 +56,10 @@ exports.createNewUserPreferences = function(db, id, lang, createUserCallback) {
   var user = { _id: id, language: lang};
   collection.save(user, function(err, results) {
     if (err == null) {
-      console.log('User inserted successfully!');
+      console.log(constants.successMessages.userInsertSuccess);
       createUserCallback(null, results);
     } else {
-      console.log('Error creating user.');
+      console.log(constants.errorMessages.userInsertError);
       createUserCallback(err, null);
     }
   });
@@ -70,9 +70,9 @@ exports.writeSubscriber = function(db, collectionId, message, callback) {
   var subscriber = { _id: message.userId, chatId: message.chatId, replyId: message.replyId};
   collection.save(subscriber, function(err, results) {
     if (err == null) {
-      callback(null, 'Subscribe successfully!');
+      callback(null, constants.successMessages.subscriptionSuccess);
     } else {
-      callback('Error subscribing.', null);
+      callback(constants.errorMessages.subscriptionError, null);
     }
   });
 }
@@ -81,9 +81,9 @@ exports.deleteSubscriber = function(db, collectionId, userId, callback) {
   var collection = db.collection(collectionId);
   collection.remove({_id: userId}, function(err, results) {
     if (err == null) {
-      callback(null, 'Unsubscribe successfully!');
+      callback(null, constants.successMessages.unsubscriptionSuccess);
     } else {
-      callback('Error Unsubscribe.', null);
+      callback(constants.errorMessages.unsubscriptionError, null);
     }
   });
 }
@@ -93,7 +93,7 @@ exports.getLastPubDate = function(db, collectionId, lastPubDate, callback) {
 
   collection.findOne({_id: collectionId}, function(err, document) {
     if (err != null) {
-      console.log('Error finding user.');
+      console.log(constants.errorMessages.noUserFoundError);
       callback(err, null);
     }
 
@@ -140,7 +140,7 @@ function writePubDate(db, collectionId, lastPubDate, callback) {
       console.log('Writing last pubDate for ' + collectionId);
       callback(null, results);
     } else {
-      console.log('Error writing pubDate.');
+      console.log(constants.errorMessages.pubDateError);
       callback(err, null);
     }
   });

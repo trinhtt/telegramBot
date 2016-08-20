@@ -80,10 +80,10 @@ function deleteSubscriber(collectionId, message) {
 function getPreferedLanguage(message) {
   dbClass.getPreferedLanguage(dbInstance, message.userId, function(err, callback) {
     if (err == null) {
-      bot.sendMessage(message.chatId, 'Current language is ' + formatter.getFormattedLanguage(callback), {reply_to_message_id: message.replyId});
+      bot.sendMessage(message.chatId, constants.botMessages.currentLanguage + formatter.getFormattedLanguage(callback), {reply_to_message_id: message.replyId});
     } else {
       console.log(err);
-      bot.sendMessage(message.chatId, 'Couldnt find prefered language for user.', {reply_to_message_id: message.replyId});
+      bot.sendMessage(message.chatId, constants.errorMessages.cantRetrieveLanguage, {reply_to_message_id: message.replyId});
     }
   });
 }

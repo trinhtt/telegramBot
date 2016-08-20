@@ -63,6 +63,32 @@ var constants = {
               '\\unsubscribe (current|warning): To unsubscribe to a feed. You won\'t receive notifications anymore.\n\n' +
               '\\topics: Topics that you can query the bot\n\n' +
               '\\(english)(simplified)(traditional): Change the language you will receive the results'
+      },
+
+      errorMessages : {
+        databaseConnectionError: 'Couldn\'t connect to database',
+        noUserFoundError: 'No user found',
+        noUserFoundCreateNewError: 'Couldn\'t find the user. Creating a new one.',
+        cantRetrieveLanguage: 'Couldn\'t retrieve prefered language for this user',
+        userInsertError: 'Error creating user',
+        subscriptionError: 'Error subscribing to topic',
+        unsubscriptionError: 'Error unsubscribing to topic',
+        pubDateError: 'Error writing pubDate'
+      },
+
+      successMessages : {
+        databaseConnectionSuccess: 'Connected correctly to database',
+        defaultLanguage: 'Default language is English',
+        foundLanguage: 'Found prefered language for user',
+        userInsertSuccess: 'User inserted successfully!',
+        subscriptionSuccess: 'Subscribed successfully!',
+        unsubscriptionSuccess: 'Unsubscribed successfully!',
+        pubDateSuccess: 'Writing pubDate successfully!'
+      },
+
+      botMessages: {
+        currentLanguage: 'Current language is ',
+        
       }
 
 };
