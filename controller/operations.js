@@ -16,6 +16,22 @@ function init(botClass,db){
 // Private methods
 /****************************************************/
 
+function sendMessagesToSubscribers(collectionId, type, getMethod) {
+  dbClass.getSubscribers(dbInstance, collectionId, function(err, documents) {
+    if (err) {
+      console.log(err);
+      return
+    }
+
+    documents.forEach( function(doc) {
+      var id = doc._id;
+      var chatId = doc.chatId;
+      var replyId = doc.replyId;
+      sendMessageWithFormattedLanguage(id, chatId, type, replyId, getMethod, true);
+    });
+  });
+}
+
 function sendMessageWithFormattedLanguage(userId, chatId, type, replyId, getMethod, update) {
   if (dbInstance != null) {
     dbClass.getPreferedLanguage(dbInstance, userId, function(err, callback) {
@@ -89,7 +105,8 @@ var operations = {
     writeSubscriber: writeSubscriber,
     deleteSubscriber: deleteSubscriber,
     getPreferedLanguage: getPreferedLanguage,
-    createNewUserPreferences: createNewUserPreferences
+    createNewUserPreferences: createNewUserPreferences,
+    sendMessagesToSubscribers: sendMessagesToSubscribers
 };
 
 
