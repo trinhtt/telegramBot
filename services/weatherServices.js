@@ -1,5 +1,5 @@
 var http = require('http');
-var debugmode = false;
+var debugmode = true;
 var xml2js = require('xml2js');
 var Constants = require('../utils/constants.js');
 var parser = new xml2js.Parser({explicitArray : false});
@@ -20,7 +20,7 @@ function getCurrentWeather(url, callback) {
       /****************************************************/
       if (debugmode == true) {
         fs = require('fs');
-        fs.readFile('../debug/currentWeather.txt', 'utf8', function (err,data) {
+        fs.readFile('./debug/currentWeather.txt', 'utf8', function (err,data) {
           if (err) {
             return console.log(err);
           }
@@ -91,7 +91,7 @@ function getWarning(url, callback) {
       /****************************************************/
       if (debugmode == true) {
         fs = require('fs');
-        fs.readFile('../debug/warning.txt', 'utf8', function (err,data) {
+        fs.readFile('./debug/warning.txt', 'utf8', function (err,data) {
           if (err) {
             return console.log(err);
           }
@@ -118,7 +118,7 @@ function getWarning(url, callback) {
             callback(null, 'Error parsing warning XML.')
             return
           }
-          var title = result.rss.channel.item.title;
+          var title = result.rss.channel.item[0].title;
           title = title.replace(/\s\s+/g, ' ');
           callback(title, null, result);
         });
