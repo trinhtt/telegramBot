@@ -31,7 +31,7 @@ dbClass.connect(function(database, err) {
     // Polling the RSS feed with a timer
     /****************************************************/
     var timer = setInterval(pollFeedRSS, Constants.timerValue.delayTest);
-    
+
   } else {
     console.log(err);
     return
@@ -43,64 +43,6 @@ dbClass.connect(function(database, err) {
 /****************************************************/
 
 function pollFeedRSS() {
-  pollCurrentWeatherFeed();
-  pollWarningFeed();
-}
-
-function pollCurrentWeatherFeed() {
-  // Poll current weather feed
-  var currentWeatherURL = Constants.webservices.English.rootURL+Constants.webservices.English.currentWeatherRSS;
-  weatherService.getCurrentWeather(currentWeatherURL, function(result, err, xml) {
-    if (err != null) {
-      console.log(err);
-      return
-    }
-
-    var publishDate = xml.rss.channel.item.pubDate;
-    if (publishDate == null) {
-      console.log('Publish date is null');
-      return
-    }
-
-    dbClass.getLastPubDate(dbInstance, Constants.topics.current, publishDate, function(err, results) {
-      if (err == null && results != null) {
-        console.log('Send messages to subscribers, current weather update.');
-        operations.sendMessagesToSubscribers(Constants.databaseCollections.subscribersCurrent, Constants.topics.current, weatherService.getCurrentWeather);
-      }
-
-      if (results == null || err != null) {
-        console.log('No updates for current weather.');
-      }
-    });
-  });
-}
-
-function pollWarningFeed() {
-  // Poll warning feed
-  var currentWarningURL = Constants.webservices.English.rootURL+Constants.webservices.English.warningRSS;
-  weatherService.getWarning(currentWarningURL, function(title, err, res) {
-    if (err != null) {
-      console.log(err);
-      return
-    }
-
-    var publishDate = res.rss.channel.pubDate;
-    if (publishDate == null) {
-      console.log('Publish date is null');
-      return
-    }
-
-    dbClass.getLastPubDate(dbInstance, Constants.topics.warning, publishDate, function(err, results) {
-      if (err == null && results != null) {
-        // TODO: Send messages to subscribers
-        console.log('Send messages to subscribers, warning update.');
-        operations.sendMessagesToSubscribers(Constants.databaseCollections.subscribersWarning, Constants.topics.warning, weatherService.getWarning);
-      }
-
-      if (results == null || err != null) {
-        console.log('No updates for warning.');
-      }
-    });
-
-  });
+  operations.sendMessageIfUpdate(Constants.topics.current, Constants.databaseCollections.subscribersCurrent, weatherService.getCurrentWeather);
+  operations.sendMessageIfUpdate(Constants.topics.warning, Constants.databaseCollections.subscribersWarning, weatherService.getWarning);
 }

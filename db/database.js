@@ -75,7 +75,7 @@ exports.writeSubscriber = function(db, collectionId, msg, callback) {
     if (err == null) {
       callback(null, 'Subscribe successfully!');
     } else {
-      createUserCallback('Error subscribing.', null);
+      callback('Error subscribing.', null);
     }
   });
 }
@@ -86,7 +86,7 @@ exports.deleteSubscriber = function(db, collectionId, userId, callback) {
     if (err == null) {
       callback(null, 'Unsubscribe successfully!');
     } else {
-      createUserCallback('Error Unsubscribe.', null);
+      callback('Error Unsubscribe.', null);
     }
   });
 }

@@ -128,9 +128,50 @@ function getWarning(url, callback) {
   });
 }
 
-var weatherService = {
-  getCurrentWeather : getCurrentWeather,
-  getWarning : getWarning
+function pollWarningFeed(callback) {
+  // Poll warning feed
+  var currentWarningURL = Constants.webservices.English.rootURL+Constants.webservices.English.warningRSS;
+  getWarning(currentWarningURL, function(title, err, res) {
+    if (err != null) {
+      callback(err);
+      return
+    }
+
+    var publishDate = res.rss.channel.pubDate;
+    if (publishDate == null) {
+      callback('Publish date is null');
+      return
+    }
+
+    callback(null, Constants.topics.warning, Constants.databaseCollections.subscribersWarning, publishDate);
+  });
 }
 
-module.exports = weatherService;
+function pollCurrentWeatherFeed(callback) {
+  // Poll current weather feed
+  var currentWeatherURL = Constants.webservices.English.rootURL+Constants.webservices.English.currentWeatherRSS;
+  getCurrentWeather(currentWeatherURL, function(result, err, xml) {
+    if (err != null) {
+      callback(err);
+      return
+    }
+
+    var publishDate = xml.rss.channel.item.pubDate;
+    if (publishDate == null) {
+      callback('Publish date is null');
+      return
+    }
+
+    callback(null, Constants.topics.current, Constants.databaseCollections.subscribersCurrent, publishDate);
+  });
+}
+
+
+var weatherServices = {
+  getCurrentWeather : getCurrentWeather,
+  getWarning : getWarning,
+  pollWarningFeed: pollWarningFeed,
+  pollCurrentWeatherFeed: pollCurrentWeatherFeed
+}
+
+module.exports = weatherServices;
