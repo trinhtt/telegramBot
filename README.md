@@ -2,6 +2,10 @@
 
 This is a Telegram Bot which gives you the current weather and warning informations about Hong Kong weather based on a RSS Feed (https://data.gov.hk/en-data/provider/hk-hko).
 
+![screenshot1](./images/1.jpg)
+![screenshot1](./images/2.jpg)
+![screenshot1](./images/3.jpg)
+
 ## Installation
 
 1. A bot token is needed, to obtain one, talk to @botfather and create a new bot
