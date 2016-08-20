@@ -41,8 +41,7 @@ function settingUpOntext(bot){
 
   bot.onText(/\/topics/, function (msg) {
     var message = new Message(msg);
-    //TODO: Make enums of topics, no hard coded string
-    bot.sendMessage(message.chatId, 'current, warning', {reply_to_message_id: message.replyId});
+    bot.sendMessage(message.chatId, Constants.topics.current + ', ' + Constants.topics.warning, {reply_to_message_id: message.replyId});
   });
 
   bot.onText(/\/help/, function (msg) {

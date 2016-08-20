@@ -113,12 +113,12 @@ function sendMessageIfUpdate(topic, collectionId, getMethod) {
       dbClass.getLastPubDate(dbInstance, topic, publishDate, function(err, results) {
         if (err == null && results != null) {
           // TODO: Send messages to subscribers
-          console.log('Send messages to subscribers, ' + topic + ' update.');
+          console.log(constants.botMessages.sendMessage + topic + ' update.');
           operations.sendMessagesToSubscribers(collectionId, topic, getMethod);
         }
 
         if (results == null || err != null) {
-          console.log('No updates for ' + topic);
+          console.log(constants.botMessages.noUpdate + topic);
         }
       });
     }

@@ -73,7 +73,9 @@ var constants = {
         userInsertError: 'Error creating user',
         subscriptionError: 'Error subscribing to topic',
         unsubscriptionError: 'Error unsubscribing to topic',
-        pubDateError: 'Error writing pubDate'
+        pubDateError: 'Error writing pubDate',
+        XMLParsingError: 'Error parsing XML',
+        publishDateNull: 'Publish date is null'
       },
 
       successMessages : {
@@ -88,7 +90,8 @@ var constants = {
 
       botMessages: {
         currentLanguage: 'Current language is ',
-        
+        noUpdate: 'No update for ',
+        sendMessage: 'Send messages to subscriber, '
       }
 
 };
