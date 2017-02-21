@@ -1,5 +1,7 @@
 # Telegram Bot HK Weather
 
+[![Build Status](https://travis-ci.org/trinhtt/telegramBot.svg?branch=master)](https://travis-ci.org/trinhtt/telegramBot)
+
 This is a Telegram Bot which gives you the current weather and warning informations about Hong Kong weather based on a RSS Feed (https://data.gov.hk/en-data/provider/hk-hko).
 
 ![screenshot1](./images/1.png)
