@@ -4,5 +4,3 @@ node_js:
 before_script:
   - npm install node-telegram-bot-api
   - npm install xml2js
-script:
-  - make test
